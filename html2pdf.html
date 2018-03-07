@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <title>my first pdfmake example</title>
+  <script src="html2pdf.bundle.min.js"></script>
+</head>
+<style>
+html {
+	background-color: #ece7e7;
+}
+body{
+	padding: 0;
+	width: 210mm;
+	min-height: 296mm;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
+	}
+</style>
+<body>
+<div id="capture" style="width: 100%; min-height: 1024px; background: #f5da55">
+你好	1
+<br/>你好	2
+<br/>你好	3
+<br/>你好	4
+<br/>你好	5
+<br/>你好	6
+<br/>你好	7
+<br/>你好	8
+<br/>你好	9
+<br/>你好	10
+<br/>你好	11
+<br/>你好	12
+<br/>你好	13
+<br/>你好	14
+<br/>你好	15
+<br/>你好	16
+<br/>你好	17
+<br/>你好	18
+<br/>你好	19
+<br/>你好	20
+<br/>你好	21
+<br/>你好	22
+<br/>你好	23
+<br/>你好	24
+<br/>你好	25
+<br/>你好	26
+<br/>你好	27
+<br/>你好	28
+<br/>你好	29
+<br/>你好	30
+<br/>你好	31
+<br/>你好	32
+<br/>你好	33
+<br/>你好	34
+<br/>你好	35
+<br/>你好	36
+<br/>你好	37
+<br/>你好	38
+<br/>你好	39
+<br/>你好	40
+<br/>你好	41
+<br/>你好	42
+<br/>你好	43
+<br/>你好	44
+<br/>你好	45
+<br/>你好	46
+<br/>你好	47
+<br/>你好	48
+<br/>你好	49
+<br/>你好	50
+<br/>你好	51
+<br/>你好	52
+<br/>你好	53
+<br/>你好	54
+<br/>你好	55
+<br/>你好	56
+<br/>	57
+<br/>你好	58
+<br/>你好	59
+<br/>你好	60
+<br/>你好	61
+<br/>你好	62
+<br/>你好	63
+<br/>你好	64
+<br/>你好	65
+<br/>你好	66
+<br/>你好	67
+<br/>你好	68
+<br/>你好	69
+<br/>你好	70
+<br/>你好	71
+<br/>你好	72
+<br/>你好	73
+<br/>你好	74
+<br/>你好	75
+<br/>你好	76
+<br/>你好	77
+<br/>你好	78
+<br/>你好	79
+<div class="html2pdf__page-break"></div>
+<br/>你好	80
+<br/>你好	81
+<br/>你好	82
+<br/>你好	83
+<br/>你好	84
+<br/>你好	85
+<br/>你好	86
+</div>
+<script type="text/javascript">
+var element = document.getElementById('capture');
+
+html2pdf().from(element).set({
+  margin:       [15, 10, 15 , 10],
+  filename:     '张三健康报告.pdf',
+  image:        { type: 'jpeg', quality: 0.98 },
+  html2canvas:  { dpi: 192, letterRendering: true },
+  jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+}).toPdf().get('pdf').then(function(pdf){
+	pdf.setFontType("normal");
+	var number_of_pages = pdf.internal.getNumberOfPages()
+    var pdf_pages = pdf.internal.pages
+    for (var i = 1; i < pdf_pages.length; i++) {
+        // We are telling our pdfObject that we are now working on this page
+        pdf.setPage(i);
+        // The 10,200 value is only for A4 landscape. You need to define your own for other page sizes
+		pdf.addImage(getTextImageBase64Data("心脑血管家庭关护和康复计划"),10, 6);
+		pdf.setFontSize(10).text("PHILIPS", 187, 9);
+		pdf.addImage(getTextImageBase64Data("张三"),10, 289);
+		pdf.setFontSize(8).text( i + "/" + pdf_pages.length, 197, 292)
+		
+    }
+}).save();
+
+function getTextImageBase64Data(txt){
+	let canvas = document.createElement('canvas');
+	canvas.height = 14;
+	let ctx = canvas.getContext("2d");
+	ctx.fillStyle = "white";
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
+	ctx.fillStyle = "black";
+	
+	ctx.font = "13px Arial";
+	ctx.fillText(txt,0,13);
+	let data = canvas.toDataURL("image/jpeg", 1.0);
+	return data;
+}
+</script>
+</body>
+</html>
